@@ -70,8 +70,8 @@ public class FiltroConfigWeb {
                 // ======================================================================================================================= //
                 //												     Endpoints do Usuário										           //
                 // ======================================================================================================================= //
-                .requestMatchers(HttpMethod.POST, "/usuario/salvar-novo-usuario").hasAuthority(RolePerfilUsuario.ROLE_ADMINISTRADOR.name())
-                .requestMatchers(HttpMethod.PUT, "/usuario/atualizar-usuario").hasAuthority(RolePerfilUsuario.ROLE_ADMINISTRADOR.name())
+                .requestMatchers(HttpMethod.POST, "/usuario/add").hasAuthority(RolePerfilUsuario.ROLE_GERENTE.name())
+                .requestMatchers(HttpMethod.PUT, "/usuario/up").hasAuthority(RolePerfilUsuario.ROLE_GERENTE.name())
                 // ======================================================================================================================= //
 
                 .anyRequest().authenticated());

@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 public class LoginOutputDTO {
 
     @NotNull
-    private Long idUser;
+    private Long idUsuario;
     @NotBlank
     private String email;
     @NotBlank

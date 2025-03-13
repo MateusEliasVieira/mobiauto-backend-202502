@@ -3,6 +3,7 @@ package com.mobiauto.domain.model;
 import com.mobiauto.domain.enums.RolePerfilUsuario;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.validator.Email;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,7 @@ public class Usuario implements UserDetails {
     private Long idUsuario;
     private String nome;
     @Column(unique = true)
+    @Email
     private String email;
     private String senha;
     private RolePerfilUsuario perfil;

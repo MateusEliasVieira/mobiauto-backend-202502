@@ -1,9 +1,6 @@
 package com.mobiauto.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.validator.Email;
 
@@ -16,9 +13,12 @@ import org.hibernate.validator.Email;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCliente;
+    private Long idCliente;
     private String nome;
     @Email
     private String email;
-    private String Telefone;
+    private String telefone;
+
+    @OneToOne(mappedBy = "cliente")
+    private Oportunidade oportunidade;
 }

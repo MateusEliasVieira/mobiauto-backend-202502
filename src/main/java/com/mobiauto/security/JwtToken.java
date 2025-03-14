@@ -14,7 +14,7 @@ import com.mobiauto.domain.model.Usuario;
 
 public class JwtToken {
 
-    private static final String EMISSOR = "MATEUS@DEV";
+    private static final String EMISSOR = "Sistema@Mobiauto";
     private static final String TOKEN_KEY = "01234567890123456789012345678901"; // Chave deve ter 256 bits, nesse caso 32 caracteres, para a criptografia
     private static final long MINUTOS = 60;
 
@@ -22,12 +22,13 @@ public class JwtToken {
     {
         try{
             String token = JWT.create()
-                    .withSubject(usuario.getUsername()) // (Payload) define para quem é esse token (Sujeito)
-                    .withIssuer(EMISSOR) // (Payload) minha referencia (Emissor)
-                    .withExpiresAt(LocalDateTime.now().plusMinutes(MINUTOS).toInstant(ZoneOffset.of("-03:00"))) // (Payload)
-                    .withClaim("idUsuario", usuario.getIdUsuario()) // (Payload) id do usuário
-                    .withClaim("permissao", String.valueOf(usuario.getPerfil())) // Permissão do usuário
-                    .sign(Algorithm.HMAC256(TOKEN_KEY.getBytes())); // (Signature)
+                    .withSubject(usuario.getUsername()) // Dono do token (Nome do usuário)
+                    .withIssuer(EMISSOR)
+                    .withExpiresAt(LocalDateTime.now().plusMinutes(MINUTOS).toInstant(ZoneOffset.of("-03:00")))
+                    .withClaim("idUsuario", usuario.getIdUsuario()) // ID do usuário
+                    .withClaim("revenda", usuario.getRevenda().getCnpj()) // O token deve conter em qual revenda pertence a pessoa que está usando o token e realizando operações
+                    .withClaim("perfil", String.valueOf(usuario.getPerfil())) // Perfil do usuário
+                    .sign(Algorithm.HMAC256(TOKEN_KEY.getBytes())); // Assinatura
 
             return token;
 

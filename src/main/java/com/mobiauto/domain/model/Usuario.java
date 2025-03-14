@@ -24,12 +24,18 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
     private String nome;
-    @Column(unique = true)
-    @Email
+    @Email @Column(unique = true)
     private String email;
     private String senha;
     private RolePerfilUsuario perfil;
     private String token;
+
+    @ManyToOne
+    @JoinColumn(name = "revenda_id")
+    private Revenda revenda;
+
+    @OneToOne(mappedBy = "usuario")
+    private Oportunidade oportunidade;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

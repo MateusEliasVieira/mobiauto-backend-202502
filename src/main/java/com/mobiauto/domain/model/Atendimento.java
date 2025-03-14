@@ -16,7 +16,7 @@ import java.util.Date;
 public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idAtendimento;
+    private Long idAtendimento;
     private Usuario usuarioResponsável;
     private Date dataAtendimento;
     private String observacoes;

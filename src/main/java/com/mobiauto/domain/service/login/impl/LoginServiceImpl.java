@@ -3,7 +3,7 @@ package com.mobiauto.domain.service.login.impl;
 import com.mobiauto.api.controller.utils.Mensagem;
 import com.mobiauto.api.dto.login.LoginInputDTO;
 import com.mobiauto.api.dto.login.LoginOutputDTO;
-import com.mobiauto.api.mapper.login.LoginMapeador;
+import com.mobiauto.api.mapper.login.LoginMapper;
 import com.mobiauto.domain.model.Usuario;
 import com.mobiauto.domain.service.login.LoginService;
 import com.mobiauto.domain.service.usuario.UsuarioService;
@@ -17,13 +17,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginServiceImplementacao implements LoginService {
+public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private UsuarioService service;
 
     @Autowired
     public AuthenticationManager authenticationManager;
+
+    @Autowired
+    private LoginMapper mapper;
 
     @Override
     public ResponseEntity<?> processarLogin(LoginInputDTO loginEntradaDTO) {
@@ -32,7 +35,7 @@ public class LoginServiceImplementacao implements LoginService {
             var autenticacao = authenticationManager.authenticate(nomeDeUsuarioESenha);
             if (autenticacao.isAuthenticated()) {
                 Usuario usuarioLogado = service.login((Usuario) autenticacao.getPrincipal());
-                return new ResponseEntity<LoginOutputDTO>(LoginMapeador.mapperUsuarioParaLoginOutputDTO(usuarioLogado), HttpStatus.ACCEPTED);
+                return new ResponseEntity<LoginOutputDTO>(mapper.converterUsuarioParaLoginOutputDTO(usuarioLogado), HttpStatus.ACCEPTED);
             }
         } catch (AuthenticationException e) {
             System.out.println(e.getMessage());

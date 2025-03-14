@@ -29,7 +29,7 @@ public class FiltroInterceptador extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         // Pula a verificação de token para o endpoint de login
-        if (request.getRequestURI().startsWith("/login")) {
+        if (request.getRequestURI().startsWith("/login") || request.getRequestURI().startsWith("/usuario/salvar")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -77,7 +77,7 @@ public class FiltroInterceptador extends OncePerRequestFilter {
                 var username_subject = decode.getSubject();
 
                 if (validate.after(new Date(System.currentTimeMillis()))) {
-                    UserDetails user = service.buscarUsuarioPorEmail(username_subject);
+                    UserDetails user = service.listarPorEmail(username_subject);
                     // caso a requisição tenha o cabeçalho correto, gero um "token interno"
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username_subject, null, user.getAuthorities());
                     return authenticationToken;

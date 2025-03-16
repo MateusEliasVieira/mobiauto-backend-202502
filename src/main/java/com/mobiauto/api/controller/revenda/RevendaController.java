@@ -1,6 +1,5 @@
 package com.mobiauto.api.controller.revenda;
 
-import br.com.caelum.stella.hibernate.validator.CNPJ;
 import com.mobiauto.api.dto.revenda.RevendaInputDTO;
 import com.mobiauto.api.dto.revenda.RevendaOutputDTO;
 import com.mobiauto.api.mapper.revenda.RevendaMapper;

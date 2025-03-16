@@ -1,6 +1,5 @@
 package com.mobiauto.api.mapper.usuario;
 
-import com.mobiauto.api.dto.usuario.UsuarioAtualizacaoInputDTO;
 import com.mobiauto.api.dto.usuario.UsuarioInputDTO;
 import com.mobiauto.api.dto.usuario.UsuarioOutputDTO;
 import com.mobiauto.domain.model.Usuario;
@@ -21,10 +20,6 @@ public class UsuarioMapper {
 
     public Usuario converterUsuarioInputDTOEmUsuario(UsuarioInputDTO usuarioEntradaDTO){
         return modelMapper.map(usuarioEntradaDTO, Usuario.class);
-    }
-
-    public Usuario converterUsuarioUpdateInputDTOEmUsuario(UsuarioAtualizacaoInputDTO usuarioAtualizacaoEntradaDTO){
-        return modelMapper.map(usuarioAtualizacaoEntradaDTO, Usuario.class);
     }
 
     public UsuarioOutputDTO converterUsuarioEmUsuarioOutputDTO(Usuario usuario){

@@ -4,6 +4,7 @@ import com.mobiauto.domain.enums.StatusOportunidade;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -13,29 +14,33 @@ import java.util.Date;
 @ToString
 @Entity
 public class Oportunidade {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOportunidade;
     private StatusOportunidade status;
     private String motivoDaConclusao;
-    private Date dataDeAtribuicao;
-    private Date dataDeConclusao;
+    private LocalDateTime dataDeAtribuicao;
+    private LocalDateTime dataDeConclusao;
 
     @ManyToOne
     @JoinColumn(name = "revenda_id")
     private Revenda revenda;
 
-    @OneToOne
-    @JoinColumn(name = "cliente_id", unique = true)
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToOne
-    @JoinColumn(name = "veiculo_id", unique = true)
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", unique = true)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    @OneToOne(mappedBy = "oportunidade", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Atendimento atendimento;
 
 
 }

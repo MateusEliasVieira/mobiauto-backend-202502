@@ -3,7 +3,7 @@ package com.mobiauto.domain.model;
 import com.mobiauto.domain.enums.RolePerfilUsuario;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.validator.Email;
+import jakarta.validation.constraints.Email;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,17 +34,20 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "revenda_id")
     private Revenda revenda;
 
-    @OneToOne(mappedBy = "usuario")
-    private Oportunidade oportunidade;
+    @OneToMany(mappedBy = "usuario")
+    private List<Oportunidade> oportunidades;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Atendimento> atendimentos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        if (this.perfil == RolePerfilUsuario.ROLE_PROPRIETARIO) {
-            return List.of(new SimpleGrantedAuthority("ROLE_PROPRIETARIO"), new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"), new SimpleGrantedAuthority("ROLE_GERENTE"), new SimpleGrantedAuthority("ROLE_ASSISTENTE"));
+        if (this.perfil == RolePerfilUsuario.ROLE_ADMINISTRADOR) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"), new SimpleGrantedAuthority("ROLE_PROPRIETARIO"), new SimpleGrantedAuthority("ROLE_GERENTE"), new SimpleGrantedAuthority("ROLE_ASSISTENTE"));
         }
-        else if (this.perfil == RolePerfilUsuario.ROLE_ADMINISTRADOR) {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"), new SimpleGrantedAuthority("ROLE_GERENTE"), new SimpleGrantedAuthority("ROLE_ASSISTENTE"));
+        else if (this.perfil == RolePerfilUsuario.ROLE_PROPRIETARIO) {
+            return List.of(new SimpleGrantedAuthority("ROLE_PROPRIETARIO"), new SimpleGrantedAuthority("ROLE_GERENTE"), new SimpleGrantedAuthority("ROLE_ASSISTENTE"));
         }
         else if (this.perfil == RolePerfilUsuario.ROLE_GERENTE) {
             return List.of(new SimpleGrantedAuthority("ROLE_GERENTE"), new SimpleGrantedAuthority("ROLE_ASSISTENTE"));

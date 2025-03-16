@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.validator.Email;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,10 +17,9 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
     private String nome;
-    @Email
     private String email;
     private String telefone;
 
-    @OneToOne(mappedBy = "cliente")
-    private Oportunidade oportunidade;
+    @OneToMany(mappedBy = "cliente")
+    private List<Oportunidade> oportunidades;
 }

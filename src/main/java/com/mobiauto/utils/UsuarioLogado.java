@@ -16,4 +16,11 @@ public class UsuarioLogado {
         DecodedJWT decodedJWT = (DecodedJWT) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return decodedJWT.getClaim("perfil").asString(); // Recupera o Perfil do usuário logado no sistema
     }
+
+    public static String getIDTokenUsuarioLogado() {
+        // Obtém o token do contexto de segurança e extrai o ID do usuário logado
+        DecodedJWT decodedJWT = (DecodedJWT) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return decodedJWT.getClaim("idUsuario").asString(); // Recupera o Perfil do usuário logado no sistema
+    }
+
 }

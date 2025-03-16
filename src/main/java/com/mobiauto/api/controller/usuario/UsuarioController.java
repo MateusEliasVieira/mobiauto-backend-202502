@@ -1,6 +1,5 @@
 package com.mobiauto.api.controller.usuario;
 
-import com.mobiauto.api.dto.usuario.UsuarioAtualizacaoInputDTO;
 import com.mobiauto.api.dto.usuario.UsuarioInputDTO;
 import com.mobiauto.api.dto.usuario.UsuarioOutputDTO;
 import com.mobiauto.api.mapper.usuario.UsuarioMapper;
@@ -44,8 +43,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<String> atualizar(@RequestBody UsuarioAtualizacaoInputDTO usuarioAtualizacaoInputDTO) {
-        usuarioServico.atualizar(mapper.converterUsuarioUpdateInputDTOEmUsuario(usuarioAtualizacaoInputDTO));
+    public ResponseEntity<String> atualizar(@RequestBody UsuarioInputDTO usuarioInputDTO) {
+        usuarioServico.atualizar(mapper.converterUsuarioInputDTOEmUsuario(usuarioInputDTO));
         return new ResponseEntity<String>("Usuário atualizado com sucesso!", HttpStatus.CREATED);
     }
 

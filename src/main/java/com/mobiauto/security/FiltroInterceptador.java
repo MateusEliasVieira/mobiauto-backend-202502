@@ -29,7 +29,7 @@ public class FiltroInterceptador extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         // Pula a verificação de token para o endpoint de login
-        if (request.getRequestURI().startsWith("/login") || request.getRequestURI().startsWith("/usuario/salvar")) {
+        if (request.getRequestURI().startsWith("/login") || request.getRequestURI().startsWith("/swagger-ui/index.html")) {
             filterChain.doFilter(request, response);
             return;
         }

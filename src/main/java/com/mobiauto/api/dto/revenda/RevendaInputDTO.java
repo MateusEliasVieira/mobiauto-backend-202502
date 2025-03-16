@@ -1,10 +1,7 @@
 package com.mobiauto.api.dto.revenda;
 
-import com.mobiauto.domain.model.Oportunidade;
-import com.mobiauto.domain.model.Usuario;
+import br.com.caelum.stella.hibernate.validator.CNPJ;
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -14,9 +11,8 @@ import java.util.List;
 public class RevendaInputDTO {// Loja
 
     private Long idRevenda;
+    @CNPJ
     private String cnpj;
     private String nomeSocial;
-    private List<Usuario> usuarios;
-    private List<Oportunidade> oportunidades;
 
 }

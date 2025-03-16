@@ -3,6 +3,8 @@ package com.mobiauto.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,6 +20,6 @@ public class Veiculo {
     private String versao;
     private String anoModelo;
 
-    @OneToOne(mappedBy = "veiculo")
-    private Oportunidade oportunidade;
+    @OneToMany(mappedBy = "veiculo")
+    private List<Oportunidade> oportunidades;
 }

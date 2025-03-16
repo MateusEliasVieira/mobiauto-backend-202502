@@ -60,6 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
+    @Transactional(readOnly = false)
     private Usuario prepararParaSalvarNovoUsuario(Usuario usuario) {
         if (repository.findByEmail(usuario.getEmail()).isEmpty()) {
             // usuario ainda não existe
@@ -124,6 +125,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     }
 
+    @Transactional(readOnly = false)
     @Override
     public void deletar(Long idUsuario) {
         repository.findById(idUsuario).ifPresentOrElse((usuario) -> {
@@ -133,6 +135,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         });
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Usuario> listar() {
         return repository.findAll();
@@ -145,6 +148,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return UsuarioOptional.orElseThrow(() -> new RegrasDeNegocioException("Usuário não encontrado!"));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Usuario listarPorEmail(String email) {
         Optional<Usuario> UsuarioOptional = repository.findByEmail(email);

@@ -1,12 +1,9 @@
 package com.mobiauto.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,7 +14,15 @@ public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAtendimento;
-    private Usuario usuarioResponsável;
-    private Date dataAtendimento;
+    private LocalDateTime dataAtendimento;
     private String observacoes;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @OneToOne
+    @JoinColumn(name = "oportunidade_id", unique = true)
+    private Oportunidade oportunidade;
+
 }

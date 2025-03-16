@@ -6,6 +6,9 @@ import com.mobiauto.domain.model.Atendimento;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class AtendimentoMapper {
 
@@ -22,5 +25,14 @@ public class AtendimentoMapper {
     public AtendimentoOutputDTO converterAtendimentoEmAtendimentoOutputDTO(Atendimento atendimento){
         return this.modelMapper.map(atendimento, AtendimentoOutputDTO.class);
     }
+
+    public List<AtendimentoOutputDTO> converterListaAtendimentoEmListaAtendimentoOutputDTO(List<Atendimento> listaAtendimento){
+        List<AtendimentoOutputDTO> listaAtendimentoOutputDTO = new ArrayList<>();
+        listaAtendimento.forEach((la)->{
+            listaAtendimentoOutputDTO.add(converterAtendimentoEmAtendimentoOutputDTO(la));
+        });
+        return listaAtendimentoOutputDTO;
+    }
+
 
 }

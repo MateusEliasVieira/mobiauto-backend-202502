@@ -1,9 +1,7 @@
 package com.mobiauto.domain.model;
 
-import br.com.caelum.stella.hibernate.validator.CNPJ;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
 @Getter
@@ -18,7 +16,6 @@ public class Revenda {// Loja
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRevenda;
     @Column(unique = true)
-    @CNPJ
     private String cnpj;
     private String nomeSocial;
 

@@ -10,9 +10,9 @@ public interface OportunidadeService {
     public void criar(Oportunidade oportunidade);
     public void concluir(Oportunidade oportunidade);
     public List<Oportunidade> listar();
-    public void transferirOportunidade(OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO);
+    public void transferirOportunidade(OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO,String token);
     public Oportunidade listarPorId(Long id);
     public void deletar(Long id);
-    public void atualizar(Oportunidade oportunidade);
+    public void atualizar(Oportunidade oportunidade,String token);
 
 }

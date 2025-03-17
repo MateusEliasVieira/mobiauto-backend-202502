@@ -1,14 +1,8 @@
 package com.mobiauto.api.dto.atendimento;
 
-import com.mobiauto.domain.model.Oportunidade;
-import com.mobiauto.domain.model.Usuario;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.mobiauto.api.dto.oportunidade.OportunidadeIDInputDTO;
+import com.mobiauto.api.dto.usuario.UsuarioIDInputDTO;
 import lombok.*;
-
-import java.util.Date;
 
 @Getter
 @Setter
@@ -20,6 +14,6 @@ public class AtendimentoInputDTO {
     private Long idAtendimento;
     private String observacoes;
 
-    private Usuario usuario;
-    private Oportunidade oportunidade;
+    private UsuarioIDInputDTO usuario;
+    private OportunidadeIDInputDTO oportunidade;
 }

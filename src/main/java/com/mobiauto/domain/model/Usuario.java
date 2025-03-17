@@ -28,6 +28,8 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
     private RolePerfilUsuario perfil;
+    @Lob // usada em JPA para indicar que um atributo de uma entidade deve ser mapeado para um tipo de objeto grande no banco de dados
+    @Column(columnDefinition = "LONGTEXT")
     private String token;
 
     @ManyToOne

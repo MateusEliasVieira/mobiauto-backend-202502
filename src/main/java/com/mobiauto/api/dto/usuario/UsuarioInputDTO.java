@@ -1,23 +1,21 @@
 package com.mobiauto.api.dto.usuario;
 
+import com.mobiauto.api.dto.revenda.RevendaIDInputDTO;
 import com.mobiauto.domain.enums.RolePerfilUsuario;
-import com.mobiauto.domain.model.Revenda;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UsuarioInputDTO {
 
     private Long idUsuario;
     private String nome;
     private String email;
     private String senha;
-    private Revenda revenda;
+    private RevendaIDInputDTO revenda;
     private RolePerfilUsuario perfil;
 
 }

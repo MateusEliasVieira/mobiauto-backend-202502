@@ -25,9 +25,11 @@ public class UsuarioController {
     private UsuarioMapper mapper;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> salvar(@RequestBody @Valid UsuarioInputDTO usuarioInputDTO) {
+    public ResponseEntity<String> salvar(@RequestBody @Valid UsuarioInputDTO usuarioInputDTO,  @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+
         ValidadorDeSenha.isStrong(usuarioInputDTO.getSenha());
-        usuarioServico.salvar(mapper.converterUsuarioInputDTOEmUsuario(usuarioInputDTO));
+        usuarioServico.salvar(mapper.converterUsuarioInputDTOEmUsuario(usuarioInputDTO),token);
         return new ResponseEntity<String>("Usuário cadastrado com sucesso!", HttpStatus.CREATED);
     }
 
@@ -43,8 +45,10 @@ public class UsuarioController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<String> atualizar(@RequestBody UsuarioInputDTO usuarioInputDTO) {
-        usuarioServico.atualizar(mapper.converterUsuarioInputDTOEmUsuario(usuarioInputDTO));
+    public ResponseEntity<String> atualizar(@RequestBody UsuarioInputDTO usuarioInputDTO, @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        usuarioServico.atualizar(mapper.converterUsuarioInputDTOEmUsuario(usuarioInputDTO),token);
         return new ResponseEntity<String>("Usuário atualizado com sucesso!", HttpStatus.CREATED);
     }
 

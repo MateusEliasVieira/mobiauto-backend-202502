@@ -1,6 +1,6 @@
 package com.mobiauto.api.dto.veiculo;
 
-import com.mobiauto.domain.model.Oportunidade;
+import com.mobiauto.api.dto.oportunidade.OportunidadeDadosBasicosOutputDTO;
 import lombok.*;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public class VeiculoOutputDTO {
     private String versao;
     private String anoModelo;
 
-    private List<Oportunidade> oportunidades;
+    private List<OportunidadeDadosBasicosOutputDTO> oportunidades;
 }

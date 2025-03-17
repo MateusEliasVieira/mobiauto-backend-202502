@@ -1,0 +1,26 @@
+create database dbmobiauto;
+use dbmobiauto;
+
+-- Inserir Revenda
+INSERT INTO revenda (cnpj, nome_social) VALUES
+('64.565.592/0001-71', 'Revenda XYZ');
+
+-- Inserir Usuário (Depende de Revenda)
+INSERT INTO usuario (nome, email, senha, perfil, token, revenda_id) VALUES
+('Mateus Elias Vieira', 'mateusifg@email.com', '$2a$10$ro/9tN2cBbiqMYqI61H0OO5HBMkI9.So27F48Slyuc6PbWlNgDSS2', 0, 'token123', 1);
+
+-- Inserir Cliente
+INSERT INTO cliente (nome, email, telefone) VALUES
+('Maria Oliveira', 'maria@email.com', '(11)99999-9999');
+
+-- Inserir Veículo
+INSERT INTO veiculo (marca, modelo, versao, ano_modelo) VALUES
+('Toyota', 'Corolla', 'XEI 2.0', '23/24');
+
+-- Inserir Oportunidade (Depende de Revenda, Cliente, Veículo e Usuário)
+INSERT INTO oportunidade (status, motivo_da_conclusao, data_de_atribuicao, data_de_conclusao, revenda_id, cliente_id, veiculo_id, usuario_id) VALUES
+(0, NULL, '2024-03-16 10:00:00', NULL, 1, 1, 1, 1);
+
+-- Inserir Atendimento (Depende de Oportunidade e Usuário)
+INSERT INTO atendimento (data_atendimento, observacoes, usuario_id, oportunidade_id) VALUES
+('2024-03-16 14:00:00', 'Cliente interessado no veículo', 1, 1);

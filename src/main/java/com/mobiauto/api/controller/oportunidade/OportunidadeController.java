@@ -36,8 +36,10 @@ public class OportunidadeController {
     }
 
     @PostMapping("/transferir")
-    public ResponseEntity<String> transferir(@RequestBody OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO){
-        service.transferirOportunidade(oportunidadeTransferenciaInputDTO);
+    public ResponseEntity<String> transferir(@RequestBody OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO,@RequestHeader("Authorization") String authorizationHeader){
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        service.transferirOportunidade(oportunidadeTransferenciaInputDTO,token);
         return new ResponseEntity<String>("Oportunidade transferida com sucesso!", HttpStatus.OK);
     }
 
@@ -52,8 +54,10 @@ public class OportunidadeController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<String> atualizar(@RequestBody OportunidadeCriarInputDTO oportunidadeInputDTO){
-        service.atualizar(mapper.converterOportunidadeCriarInputDTOEmOportunidade(oportunidadeInputDTO));
+    public ResponseEntity<String> atualizar(@RequestBody OportunidadeCriarInputDTO oportunidadeInputDTO,@RequestHeader("Authorization") String authorizationHeader){
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        service.atualizar(mapper.converterOportunidadeCriarInputDTOEmOportunidade(oportunidadeInputDTO),token);
         return new ResponseEntity<String>("Oportunidade atualizada com sucesso!", HttpStatus.CREATED);
     }
 

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -39,7 +38,7 @@ public class Oportunidade {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @OneToOne(mappedBy = "oportunidade", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "oportunidade", cascade = CascadeType.ALL)
     private Atendimento atendimento;
 
 

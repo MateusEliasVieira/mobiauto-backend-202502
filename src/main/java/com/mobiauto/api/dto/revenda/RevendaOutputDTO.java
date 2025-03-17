@@ -1,7 +1,7 @@
 package com.mobiauto.api.dto.revenda;
 
-import com.mobiauto.domain.model.Oportunidade;
-import com.mobiauto.domain.model.Usuario;
+import com.mobiauto.api.dto.oportunidade.OportunidadeDadosBasicosOutputDTO;
+import com.mobiauto.api.dto.usuario.UsuarioDadosBasicosOutputDTO;
 import lombok.*;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class RevendaOutputDTO {// Loja
     private Long idRevenda;
     private String cnpj;
     private String nomeSocial;
-    private List<Usuario> usuarios;
-    private List<Oportunidade> oportunidades;
+    private List<UsuarioDadosBasicosOutputDTO> usuarios;
+    private List<OportunidadeDadosBasicosOutputDTO> oportunidades;
 
 }

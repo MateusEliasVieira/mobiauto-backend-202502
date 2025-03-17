@@ -49,17 +49,17 @@ class RevendaControllerTest {
 
         // Arranjando o comportamento do mock
         when(mapper.converterRevendaInputDTOEmRevenda(revendaInputDTO)).thenReturn(revenda);
-        doNothing().when(service).salvar(revenda);
+        doNothing().when(service).salvar(revenda,"token");
 
         // Chamando o método do controlador
-        ResponseEntity<String> response = revendaController.salvar(revendaInputDTO);
+        ResponseEntity<String> response = revendaController.salvar(revendaInputDTO,"token");
 
         // Verificando o resultado
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals("Revenda adicionada com sucesso!", response.getBody());
 
         // Verificando se o método foi chamado no serviço
-        verify(service, times(1)).salvar(revenda);
+        verify(service, times(1)).salvar(revenda,"token");
     }
 
     @Test

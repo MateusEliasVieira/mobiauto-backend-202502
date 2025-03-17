@@ -4,8 +4,7 @@ import com.mobiauto.api.dto.oportunidade.OportunidadeTransferenciaInputDTO;
 import com.mobiauto.domain.enums.RolePerfilUsuario;
 import com.mobiauto.domain.enums.StatusOportunidade;
 import com.mobiauto.domain.exception.RegrasDeNegocioException;
-import com.mobiauto.domain.model.Oportunidade;
-import com.mobiauto.domain.model.Usuario;
+import com.mobiauto.domain.model.*;
 import com.mobiauto.domain.repository.*;
 import com.mobiauto.domain.service.oportunidade.OportunidadeService;
 import com.mobiauto.utils.UsuarioLogado;
@@ -54,11 +53,26 @@ public class OportunidadeServiceImpl implements OportunidadeService {
             throw new RegrasDeNegocioException("Informe o código identificado único do atendimento!");
         }
 
-        revendaRepository.findById(oportunidade.getRevenda().getIdRevenda()).orElseThrow(() -> new RegrasDeNegocioException("Revenda vinculada não encontrada!"));
-        clienteRepository.findById(oportunidade.getCliente().getIdCliente()).orElseThrow(() -> new RegrasDeNegocioException("Cliente vinculado não encontrado!"));
-        usuarioRepository.findById(oportunidade.getUsuario().getIdUsuario()).orElseThrow(() -> new RegrasDeNegocioException("Usuário vinculado não encontrado!"));
-        veiculoRepository.findById(oportunidade.getVeiculo().getIdVeiculo()).orElseThrow(() -> new RegrasDeNegocioException("Veículo vinculado não encontrado!"));
-        repositoryAtendimento.findById(oportunidade.getAtendimento().getIdAtendimento()).orElseThrow(() -> new RegrasDeNegocioException("Atendimento vinculado não encontrada!"));
+        Revenda revenda = revendaRepository.findById(oportunidade.getRevenda().getIdRevenda()).orElseThrow(() -> new RegrasDeNegocioException("Revenda vinculada não encontrada!"));
+        Cliente cliente = clienteRepository.findById(oportunidade.getCliente().getIdCliente()).orElseThrow(() -> new RegrasDeNegocioException("Cliente vinculado não encontrado!"));
+        Usuario usuario = usuarioRepository.findById(oportunidade.getUsuario().getIdUsuario()).orElseThrow(() -> new RegrasDeNegocioException("Usuário vinculado não encontrado!"));
+        Veiculo veiculo = veiculoRepository.findById(oportunidade.getVeiculo().getIdVeiculo()).orElseThrow(() -> new RegrasDeNegocioException("Veículo vinculado não encontrado!"));
+        Atendimento atendimento = repositoryAtendimento.findById(oportunidade.getAtendimento().getIdAtendimento()).orElseThrow(() -> new RegrasDeNegocioException("Atendimento vinculado não encontrada!"));
+
+        oportunidade.setRevenda(revenda);
+        revenda.getOportunidades().add(oportunidade);
+
+        oportunidade.setCliente(cliente);
+        cliente.getOportunidades().add(oportunidade);
+
+        oportunidade.setUsuario(usuario);
+        usuario.getOportunidades().add(oportunidade);
+
+        oportunidade.setVeiculo(veiculo);
+        veiculo.getOportunidades().add(oportunidade);
+
+        oportunidade.setAtendimento(atendimento);
+        atendimento.setOportunidade(oportunidade);
 
         oportunidade.setDataDeAtribuicao(LocalDateTime.now());
         oportunidade.setStatus(StatusOportunidade.NOVO);
@@ -66,8 +80,8 @@ public class OportunidadeServiceImpl implements OportunidadeService {
         // Verifica se foi atribuido o usuário responsável por essa oportunidade
         if (oportunidade.getUsuario().getIdUsuario() == null) {
             // Não foi atribuido, deverá ser atribuido ao usuario do tipo assistente com menor quantidade de oportunidades "em andamento" e maior tempo sem receber uma oportunidade
-            Usuario usuario = distribuirOportunidade();
-            oportunidade.getUsuario().setIdUsuario(usuario.getIdUsuario());
+            Usuario u = distribuirOportunidade();
+            oportunidade.getUsuario().setIdUsuario(u.getIdUsuario());
         }
 
         repository.save(oportunidade);
@@ -138,7 +152,7 @@ public class OportunidadeServiceImpl implements OportunidadeService {
 
     @Transactional(readOnly = false)
     @Override
-    public void transferirOportunidade(OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO) {
+    public void transferirOportunidade(OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO,String token) {
         // Qual usuário Assistente será?
         // Qual oportunidade?
         // Quem acionou esse método, tem permissão de Proprietário ou Gerente?
@@ -159,11 +173,11 @@ public class OportunidadeServiceImpl implements OportunidadeService {
                 () -> new RegrasDeNegocioException("Não foi encontrado a oportunidade que será transferida!"));
 
         // Verificamos se quem acionou o método tem permissão para isso
-        if (UsuarioLogado.getPerfilTokenUsuarioLogado().equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
-                || UsuarioLogado.getPerfilTokenUsuarioLogado().equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
+        if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
+                || UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
 
             // Verificar se o usuário logado é proprietário ou gerente da revenda da oportunidade
-            if (!oportunidade.getRevenda().getCnpj().equals(UsuarioLogado.getCnpjTokenUsuarioLogado())) {
+            if (!oportunidade.getRevenda().getCnpj().equals(UsuarioLogado.getCnpjTokenUsuarioLogado(token))) {
                 throw new RegrasDeNegocioException("Você não tem permissão para transferir oportunidades dessa revenda!");
             }
 
@@ -226,7 +240,7 @@ public class OportunidadeServiceImpl implements OportunidadeService {
 
     @Transactional(readOnly = false)
     @Override
-    public void atualizar(Oportunidade oportunidade) {
+    public void atualizar(Oportunidade oportunidade,String token) {
         // O usuário que está acionando este método deve ser proprietario ou gerente ou dono da oportunidade
 
         // Verificando se o código identificador único da oportunidade foi informado e se ela existe no banco de dados
@@ -241,15 +255,15 @@ public class OportunidadeServiceImpl implements OportunidadeService {
                 .orElseThrow(() -> new RegrasDeNegocioException("Usuário vinculado a oportunidade não encontrado!"));
 
         // Vericamos se quem está acessando é proprietário ou gerente
-        if (UsuarioLogado.getPerfilTokenUsuarioLogado().equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
-                || UsuarioLogado.getPerfilTokenUsuarioLogado().equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
+        if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
+                || UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
 
             // Pode atualizar
             repository.save(oportunidade);
 
         } else {
             // Verificamos se pelo menos é o dono da oportunidade
-            if (Long.parseLong(UsuarioLogado.getIDTokenUsuarioLogado()) == usuario.getIdUsuario()) {
+            if (Long.parseLong(UsuarioLogado.getIDTokenUsuarioLogado(token)) == usuario.getIdUsuario()) {
                 // É o dono da oportunidade
                 repository.save(oportunidade);
             } else {

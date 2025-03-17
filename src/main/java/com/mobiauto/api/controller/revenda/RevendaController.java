@@ -22,8 +22,9 @@ public class RevendaController {
     private RevendaMapper mapper;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> salvar(@RequestBody RevendaInputDTO revendaInputDTO) {
-        service.salvar(mapper.converterRevendaInputDTOEmRevenda(revendaInputDTO));
+    public ResponseEntity<String> salvar(@RequestBody RevendaInputDTO revendaInputDTO, @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        service.salvar(mapper.converterRevendaInputDTOEmRevenda(revendaInputDTO),token);
         return new ResponseEntity<String>("Revenda adicionada com sucesso!", HttpStatus.CREATED);
     }
 

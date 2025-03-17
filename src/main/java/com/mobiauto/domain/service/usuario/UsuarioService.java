@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UsuarioService {
 
-    public Usuario salvar(Usuario usuario);
-    public void atualizar(Usuario usuario);
+    public Usuario salvar(Usuario usuario,String token);
+    public void atualizar(Usuario usuario,String token);
     public void deletar(Long idUsuario);
     public List<Usuario> listar();
     public Usuario listarPorId(Long idUsuario);

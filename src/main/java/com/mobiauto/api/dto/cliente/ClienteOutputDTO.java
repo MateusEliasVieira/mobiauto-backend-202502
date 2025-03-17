@@ -1,8 +1,7 @@
 package com.mobiauto.api.dto.cliente;
 
-import com.mobiauto.domain.model.Oportunidade;
+import com.mobiauto.api.dto.oportunidade.OportunidadeDadosBasicosOutputDTO;
 import lombok.*;
-import org.hibernate.validator.Email;
 
 import java.util.List;
 
@@ -16,5 +15,5 @@ public class ClienteOutputDTO {
     private String nome;
     private String email;
     private String telefone;
-    private List<Oportunidade> oportunidades;
+    private List<OportunidadeDadosBasicosOutputDTO> oportunidades;
 }

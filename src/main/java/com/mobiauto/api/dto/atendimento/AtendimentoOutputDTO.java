@@ -1,7 +1,7 @@
 package com.mobiauto.api.dto.atendimento;
 
-import com.mobiauto.domain.model.Oportunidade;
-import com.mobiauto.domain.model.Usuario;
+import com.mobiauto.api.dto.oportunidade.OportunidadeDadosBasicosOutputDTO;
+import com.mobiauto.api.dto.usuario.UsuarioDadosBasicosOutputDTO;
 import lombok.*;
 
 import java.util.Date;
@@ -17,7 +17,7 @@ public class AtendimentoOutputDTO {
     private Date dataAtendimento;
     private String observacoes;
 
-    private Usuario usuario;
-    private Oportunidade oportunidade;
+    private UsuarioDadosBasicosOutputDTO usuario;
+    private OportunidadeDadosBasicosOutputDTO oportunidade;
 
 }

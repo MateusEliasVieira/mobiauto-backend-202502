@@ -69,7 +69,6 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- Dependências de terceiros -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

@@ -54,17 +54,11 @@ public class OportunidadeController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<String> atualizar(@RequestBody OportunidadeCriarInputDTO oportunidadeInputDTO,@RequestHeader("Authorization") String authorizationHeader){
+    public ResponseEntity<String> atualizar(@RequestBody OportunidadeCriarInputDTO oportunidadeCriarInputDTO,@RequestHeader("Authorization") String authorizationHeader){
         String token = authorizationHeader.replace("Bearer ", "");
 
-        service.atualizar(mapper.converterOportunidadeCriarInputDTOEmOportunidade(oportunidadeInputDTO),token);
+        service.atualizar(mapper.converterOportunidadeCriarInputDTOEmOportunidade(oportunidadeCriarInputDTO),token);
         return new ResponseEntity<String>("Oportunidade atualizada com sucesso!", HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<String> deletar(@PathVariable("id") Long id){
-        service.deletar(id);
-        return new ResponseEntity<String>("Oportunidade deletada com sucesso!", HttpStatus.NO_CONTENT);
     }
 
 }

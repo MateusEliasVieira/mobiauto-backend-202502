@@ -115,20 +115,4 @@ class RevendaControllerTest {
         verify(service, times(1)).atualizar(revenda);
     }
 
-    @Test
-    void deletarRevendaTest() {
-        // Arranjando o comportamento do mock
-        Long revendaId = 1L;
-        doNothing().when(service).deletar(revendaId);
-
-        // Chamando o método do controlador
-        ResponseEntity<String> response = revendaController.deletar(revendaId);
-
-        // Verificando o resultado
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-        assertEquals("Revenda deletada com sucesso!", response.getBody());
-
-        // Verificando se o método foi chamado no serviço
-        verify(service, times(1)).deletar(revendaId);
-    }
 }

@@ -1,5 +1,6 @@
 package com.mobiauto.domain.service.oportunidade.impl;
 
+import com.mobiauto.api.dto.atendimento.AtendimentoOportunidadeInputDTO;
 import com.mobiauto.api.dto.oportunidade.OportunidadeTransferenciaInputDTO;
 import com.mobiauto.domain.enums.RolePerfilUsuario;
 import com.mobiauto.domain.enums.StatusOportunidade;
@@ -49,15 +50,11 @@ public class OportunidadeServiceImpl implements OportunidadeService {
         if (oportunidade.getVeiculo() == null || oportunidade.getVeiculo().getIdVeiculo() == null) {
             throw new RegrasDeNegocioException("Informe o código identificado único do veículo!");
         }
-        if (oportunidade.getAtendimento() == null || oportunidade.getAtendimento().getIdAtendimento() == null) {
-            throw new RegrasDeNegocioException("Informe o código identificado único do atendimento!");
-        }
 
         Revenda revenda = revendaRepository.findById(oportunidade.getRevenda().getIdRevenda()).orElseThrow(() -> new RegrasDeNegocioException("Revenda vinculada não encontrada!"));
         Cliente cliente = clienteRepository.findById(oportunidade.getCliente().getIdCliente()).orElseThrow(() -> new RegrasDeNegocioException("Cliente vinculado não encontrado!"));
         Usuario usuario = usuarioRepository.findById(oportunidade.getUsuario().getIdUsuario()).orElseThrow(() -> new RegrasDeNegocioException("Usuário vinculado não encontrado!"));
         Veiculo veiculo = veiculoRepository.findById(oportunidade.getVeiculo().getIdVeiculo()).orElseThrow(() -> new RegrasDeNegocioException("Veículo vinculado não encontrado!"));
-        Atendimento atendimento = repositoryAtendimento.findById(oportunidade.getAtendimento().getIdAtendimento()).orElseThrow(() -> new RegrasDeNegocioException("Atendimento vinculado não encontrada!"));
 
         oportunidade.setRevenda(revenda);
         revenda.getOportunidades().add(oportunidade);
@@ -70,9 +67,6 @@ public class OportunidadeServiceImpl implements OportunidadeService {
 
         oportunidade.setVeiculo(veiculo);
         veiculo.getOportunidades().add(oportunidade);
-
-        oportunidade.setAtendimento(atendimento);
-        atendimento.setOportunidade(oportunidade);
 
         oportunidade.setDataDeAtribuicao(LocalDateTime.now());
         oportunidade.setStatus(StatusOportunidade.NOVO);
@@ -229,13 +223,6 @@ public class OportunidadeServiceImpl implements OportunidadeService {
     @Override
     public Oportunidade listarPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new RegrasDeNegocioException("Oportunidade não encontrada!"));
-    }
-
-    @Transactional(readOnly = false)
-    @Override
-    public void deletar(Long id) {
-        listarPorId(id);
-        repository.delete(listarPorId(id));
     }
 
     @Transactional(readOnly = false)

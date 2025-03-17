@@ -77,50 +77,54 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = false)
     @Override
     public void atualizar(Usuario usuario, String token) {
-        Optional<Usuario> usuarioPorEmail = repository.findByEmail(usuario.getEmail());
-        if (usuarioPorEmail.isPresent() && !usuarioPorEmail.get().getIdUsuario().equals(usuario.getIdUsuario())) {
-            throw new RegrasDeNegocioException("Já existe um usuário cadastrado com o E-mail " + usuarioPorEmail.get().getEmail());
-        } else {
+        if (usuario.getIdUsuario() != null) {
+            Optional<Usuario> usuarioPorEmail = repository.findByEmail(usuario.getEmail());
+            if (usuarioPorEmail.isPresent() && !usuarioPorEmail.get().getIdUsuario().equals(usuario.getIdUsuario())) {
+                throw new RegrasDeNegocioException("Já existe um usuário cadastrado com o E-mail " + usuarioPorEmail.get().getEmail());
+            } else {
 
-            if (usuario.getIdUsuario() != null) {
+                if (usuario.getIdUsuario() != null) {
 
-                Optional<Usuario> usuarioPorId = repository.findById(usuario.getIdUsuario());
+                    Optional<Usuario> usuarioPorId = repository.findById(usuario.getIdUsuario());
 
-                // Verifica se mudou o perfil do usuário
-                if (!usuario.getPerfil().equals(usuarioPorId.get().getPerfil())) {
+                    // Verifica se mudou o perfil do usuário
+                    if (!usuario.getPerfil().equals(usuarioPorId.get().getPerfil())) {
 
-                    // Verificamos se quem mudou tem autorização para atualizar o perfil do usuário
-                    if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_ADMINISTRADOR.toString())) {
+                        // Verificamos se quem mudou tem autorização para atualizar o perfil do usuário
+                        if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_ADMINISTRADOR.toString())) {
 
-                        // Pode atualizar, pois é um adm
-                        repository.save(usuario);
-                    } else {
-
-                        // Verificamos se o usuário logado é proprietário
-                        if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())) {
-
-                            // Buscamos o cnpj da loja do novo usuário
-                            String cnpjRevendaDoNovoUsuario = revendaRepository.findById(usuario.getRevenda().getIdRevenda()).get().getCnpj();
-
-                            // Verifificamos se o usuário logado proprietário é da mesma loja do usuário a ser atualizado
-                            if (UsuarioLogado.getCnpjTokenUsuarioLogado(token).equals(cnpjRevendaDoNovoUsuario)) {
-
-                                // É proprietário e pertence a mesma loja, pode atualizar
-                                repository.save(usuario);
-                            } else {
-                                throw new RegrasDeNegocioException("Você não pertence a mesma loja do usuário a ser atualizado!");
-                            }
+                            // Pode atualizar, pois é um adm
+                            repository.save(usuario);
                         } else {
-                            throw new RegrasDeNegocioException("Você não tem permissão para atualizar o perfil deste usuário, pois você não é proprietário!");
+
+                            // Verificamos se o usuário logado é proprietário
+                            if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())) {
+
+                                // Buscamos o cnpj da loja do novo usuário
+                                String cnpjRevendaDoNovoUsuario = revendaRepository.findById(usuario.getRevenda().getIdRevenda()).get().getCnpj();
+
+                                // Verifificamos se o usuário logado proprietário é da mesma loja do usuário a ser atualizado
+                                if (UsuarioLogado.getCnpjTokenUsuarioLogado(token).equals(cnpjRevendaDoNovoUsuario)) {
+
+                                    // É proprietário e pertence a mesma loja, pode atualizar
+                                    repository.save(usuario);
+                                } else {
+                                    throw new RegrasDeNegocioException("Você não pertence a mesma loja do usuário a ser atualizado!");
+                                }
+                            } else {
+                                throw new RegrasDeNegocioException("Você não tem permissão para atualizar o perfil deste usuário, pois você não é proprietário!");
+                            }
                         }
+                    } else {
+                        // Não alterou o perfil do usuário, pode salvar!
+                        repository.save(usuario);
                     }
                 } else {
-                    // Não alterou o perfil do usuário, pode salvar!
-                    repository.save(usuario);
+                    throw new RegrasDeNegocioException("Informe o id do usuário a ser atualizado!");
                 }
-            } else {
-                throw new RegrasDeNegocioException("Informe o id do usuário a ser atualizado!");
             }
+        } else {
+            throw new RegrasDeNegocioException("Informe o código identificador único do usuário!");
         }
 
     }

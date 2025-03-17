@@ -87,6 +87,7 @@ public class FiltroConfigWeb {
                 //                                                  Endpoints de Revenda OK                                                //
                 // ======================================================================================================================= //
                 .requestMatchers(HttpMethod.POST, "/revenda/salvar").hasAuthority(RolePerfilUsuario.ROLE_ADMINISTRADOR.name()) // Apenas Administradores podem criar revenda
+                .requestMatchers(HttpMethod.POST, "/revenda/adicionar-usuario").hasAuthority(RolePerfilUsuario.ROLE_ADMINISTRADOR.name()) // Apenas Administradores podem criar revenda
                 .requestMatchers(HttpMethod.PUT, "/revenda/atualizar").hasAuthority(RolePerfilUsuario.ROLE_ADMINISTRADOR.name()) // Apenas Administradores podem editar revenda
                 .requestMatchers(HttpMethod.GET, "/revenda/listar").hasAnyAuthority(RolePerfilUsuario.ROLE_ADMINISTRADOR.name()) // Apenas Administradores podem listar
                 .requestMatchers(HttpMethod.GET, "/revenda/listar/*").hasAnyAuthority(RolePerfilUsuario.ROLE_ADMINISTRADOR.name()) // Apenas Administradores podem listar

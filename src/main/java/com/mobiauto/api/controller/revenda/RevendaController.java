@@ -1,7 +1,10 @@
 package com.mobiauto.api.controller.revenda;
 
+import com.mobiauto.api.dto.revenda.RevendaAddUsuarioInputDTO;
+import com.mobiauto.api.dto.revenda.RevendaIDInputDTO;
 import com.mobiauto.api.dto.revenda.RevendaInputDTO;
 import com.mobiauto.api.dto.revenda.RevendaOutputDTO;
+import com.mobiauto.api.dto.usuario.UsuarioIDInputDTO;
 import com.mobiauto.api.mapper.revenda.RevendaMapper;
 import com.mobiauto.domain.service.revenda.RevendaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,11 @@ public class RevendaController {
         service.salvar(mapper.converterRevendaInputDTOEmRevenda(revendaInputDTO),token);
         return new ResponseEntity<String>("Revenda adicionada com sucesso!", HttpStatus.CREATED);
     }
+    @PostMapping("/adicionar-usuario")
+    public ResponseEntity<String> adicionarUsuario(@RequestBody RevendaAddUsuarioInputDTO revendaAddUsuarioInputDTO) {
+        service.adicionarUsuario(revendaAddUsuarioInputDTO);
+        return new ResponseEntity<String>("Usuário adicionado a revenda com sucesso!", HttpStatus.CREATED);
+    }
 
     @GetMapping("/listar")
     public ResponseEntity<List<RevendaOutputDTO>> listar() {
@@ -47,11 +55,6 @@ public class RevendaController {
     public ResponseEntity<String> atualizar(@RequestBody RevendaInputDTO revendaInputDTO) {
         service.atualizar(mapper.converterRevendaInputDTOEmRevenda(revendaInputDTO));
         return new ResponseEntity<String>("Revenda atualizada com sucesso!", HttpStatus.CREATED);
-    }
-    @PutMapping("/deletar/{id}")
-    public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
-        service.deletar(id);
-        return new ResponseEntity<String>("Revenda deletada com sucesso!", HttpStatus.NO_CONTENT);
     }
 
 

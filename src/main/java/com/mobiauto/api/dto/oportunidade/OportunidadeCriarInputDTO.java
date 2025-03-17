@@ -18,5 +18,5 @@ public class OportunidadeCriarInputDTO {
     private ClienteInputDTO cliente;
     private VeiculoIDInputDTO veiculo;
     private UsuarioIDInputDTO usuario;
-    private AtendimentoIDInputDTO atendimento;
+    //private AtendimentoIDInputDTO atendimento;
 }

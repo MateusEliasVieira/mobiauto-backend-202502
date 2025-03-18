@@ -1,11 +1,8 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: ifhonese  # A senha do root é configurada aqui
-      MYSQL_DATABASE: dbmobiauto
+      MYSQL_ROOT_PASSWORD: ifhonese  # Senha do root
     container_name: mysql_db
     restart: always
     ports:
@@ -14,13 +11,19 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - minha_rede
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pifhonese"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
     container_name: mobiauto_api
     restart: always
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy  # Aguarda o MySQL estar pronto antes de iniciar o app
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dbmobiauto?useSSL=false&serverTimezone=America/Sao_Paulo
       SPRING_DATASOURCE_USERNAME: root

@@ -1,0 +1,872 @@
+{
+	"info": {
+		"_postman_id": "2fd30b96-8c33-4408-abb2-acc6478a8b23",
+		"name": "Mobiauto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16660237"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"mateusifg16@gmail.com\",\n    \"senha\":\"Ma25!!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/login/logar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login",
+								"logar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuário",
+			"item": [
+				{
+					"name": "Salvar usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjMwNzA0MCwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.FmPJIFH28O61lndlGhJRKAy1j9FX3SDdunIfm333NpA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\":\"Fulano de tal\",\n    \"email\":\"fulano@gmail.com\",\n    \"senha\":\"Fu25!!\",\n    \"perfil\":\"ROLE_ASSISTENTE\",\n    \"revenda\":{\n        \"idRevenda\":1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuario/salvar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsdWNhc0BnbWFpbC5jb20iLCJpc3MiOiJTaXN0ZW1hQE1vYmlhdXRvIiwiZXhwIjoxNzQyMzEwNzAwLCJpZFVzdWFyaW8iOiIyIiwicmV2ZW5kYSI6Ijc0LjU3Mi44MDAvMDAwMS0xMyIsInBlcmZpbCI6IlJPTEVfR0VSRU5URSJ9.jIKSxEjlv1oeJaFuoZNIK-wDBL_H11JR-8RkxH8pky8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjMwNzA0MCwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.FmPJIFH28O61lndlGhJRKAy1j9FX3SDdunIfm333NpA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idUsuario\":2,\n    \"nome\":\"Fulano de tal etc\",\n    \"email\":\"fulano@gmail.com\",\n    \"senha\":\"Fe25!!\",\n    \"perfil\":\"ROLE_GERENTE\",\n    \"revenda\":{\n        \"idRevenda\":1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuario/atualizar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"atualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista usuário por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyMTc0NSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.Ns0smZZrV38sJDimvGbhywR9nMc0Lmh5xGDelZelHp0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario/listar/id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"listar",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar usuário por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyMTc0NSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.Ns0smZZrV38sJDimvGbhywR9nMc0Lmh5xGDelZelHp0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario/deletar/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"deletar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Revenda",
+			"item": [
+				{
+					"name": "Salvar  revenda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyNDgzMywiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiOTYuODc0LjY5OS8wMDAxLTk4IiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.ZVV0dZEnDFEFB3RuPkiE1ktTLXiU_rcOFbnybkVvG_Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cnpj\":\"74.572.800/0001-13\",\n    \"nomeSocial\":\"Loja-XYZ Veiculos\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/revenda/salvar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"revenda",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar revendas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIzMzczMSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.CleDSViw11iJ-9ujiZV3ri1laWDYHEfuma7dK4hd84M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/revenda/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"revenda",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar revenda por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyMTc0NSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.Ns0smZZrV38sJDimvGbhywR9nMc0Lmh5xGDelZelHp0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/revenda/listar/id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"revenda",
+								"listar",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar revenda por cnpj",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyMTc0NSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.Ns0smZZrV38sJDimvGbhywR9nMc0Lmh5xGDelZelHp0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/revenda/listar/cnpj/64565592000171",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"revenda",
+								"listar",
+								"cnpj",
+								"64565592000171"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar revenda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyMTc0NSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.Ns0smZZrV38sJDimvGbhywR9nMc0Lmh5xGDelZelHp0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idRevenda\":1,\n    \"cnpj\":\"96.874.699/0001-98\",\n    \"nomeSocial\":\"Loja-XYZABC veiculos\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/revenda/atualizar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"revenda",
+								"atualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar usuário a revenda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyODQyNywiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.9QnOk2T2CgwuBpBpvpB_Xe-fySOwHx2tqVHMkgIkBK8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idRevenda\":1,\n    \"idUsuario\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/revenda/adicionar-usuario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"revenda",
+								"adicionar-usuario"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Oportunidade",
+			"item": [
+				{
+					"name": "Criar oportunidade",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsdWNhc0BnbWFpbC5jb20iLCJpc3MiOiJTaXN0ZW1hQE1vYmlhdXRvIiwiZXhwIjoxNzQyMzEwODc5LCJpZFVzdWFyaW8iOiIyIiwicmV2ZW5kYSI6Ijc0LjU3Mi44MDAvMDAwMS0xMyIsInBlcmZpbCI6IlJPTEVfR0VSRU5URSJ9.y8v40ZI3acPXYR5yIgKKjQoQ9xeNqc64wm8KfKkFMWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"revenda\":{\n        \"idRevenda\":1\n    },\n    \"cliente\":{\n        \"idCliente\":2\n    },\n    \"veiculo\":{\n        \"idVeiculo\":2\n    },\n    \"usuario\":{\n        \"idUsuario\":2\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/oportunidade/criar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oportunidade",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar oportunidades",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjMxNDYwOSwiaWRVc3VhcmlvIjoiMSIsInJldmVuZGEiOiI2NC41NjUuNTkyLzAwMDEtNzEiLCJwZXJmaWwiOiJST0xFX0FETUlOSVNUUkFET1IifQ.BfM0G9sg2Am0H4rkIQtIKlt7zdrPVtn9R4L-cSU9uiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/oportunidade/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oportunidade",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Concluir oportunidade",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjMwNzA0MCwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.FmPJIFH28O61lndlGhJRKAy1j9FX3SDdunIfm333NpA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idOportunidade\":1,\n    \"motivoDaConclusao\":\"veiculo vendido\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/oportunidade/concluir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oportunidade",
+								"concluir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transferir oportunidade",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsdWNhc0BnbWFpbC5jb20iLCJpc3MiOiJTaXN0ZW1hQE1vYmlhdXRvIiwiZXhwIjoxNzQyMzEwODc5LCJpZFVzdWFyaW8iOiIyIiwicmV2ZW5kYSI6Ijc0LjU3Mi44MDAvMDAwMS0xMyIsInBlcmZpbCI6IlJPTEVfR0VSRU5URSJ9.y8v40ZI3acPXYR5yIgKKjQoQ9xeNqc64wm8KfKkFMWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idOportunidade\":1,\n    \"idUsuarioRecebedorDaOportunidade\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/oportunidade/transferir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oportunidade",
+								"transferir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar oportunidade por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIxMTU0NiwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.Wzb8mGgxlQ-EPKFwOFOpXbdVk6Ke3pDc9b-7crUFGRA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/oportunidade/listar/id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oportunidade",
+								"listar",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar oportunidade",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsdWNhc0BnbWFpbC5jb20iLCJpc3MiOiJTaXN0ZW1hQE1vYmlhdXRvIiwiZXhwIjoxNzQyMzE0MjE5LCJpZFVzdWFyaW8iOiIyIiwicmV2ZW5kYSI6Ijc0LjU3Mi44MDAvMDAwMS0xMyIsInBlcmZpbCI6IlJPTEVfR0VSRU5URSJ9.wa4hb4CmyjvBIDhInmmL-6GzMR5NJOI2a9CFH1bRq6g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idOportunidade\":1,\n    \"revenda\":{\n        \"idRevenda\":2\n    },\n    \"cliente\":{\n        \"idCliente\":1\n    },\n    \"veiculo\":{\n        \"idVeiculo\":1\n    },\n    \"usuario\":{\n        \"idUsuario\":1\n    },\n    \"atendimento\":{\n        \"idAtendimento\":1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/oportunidade/atualizar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oportunidade",
+								"atualizar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "Salvar cliente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIyNDgzMywiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiOTYuODc0LjY5OS8wMDAxLTk4IiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.ZVV0dZEnDFEFB3RuPkiE1ktTLXiU_rcOFbnybkVvG_Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"nome\":\"José Augusto\",\n   \"email\":\"joseaugusto@gmail.com\",\n   \"telefone\":\"(64)99234-0922\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cliente/salvar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar clientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIzMzczMSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.CleDSViw11iJ-9ujiZV3ri1laWDYHEfuma7dK4hd84M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cliente/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Veiculo",
+			"item": [
+				{
+					"name": "Salvar veiculo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjMzMjc2NSwiaWRVc3VhcmlvIjoiMSIsInJldmVuZGEiOiI2NC41NjUuNTkyLzAwMDEtNzEiLCJwZXJmaWwiOiJST0xFX0FETUlOSVNUUkFET1IifQ.n8oyOytjScKaYxL3ddN1fnDg9GEFI6HR7mVy4LbfWMs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"marca\": \"Chevrolet\",\n    \"modelo\": \"Prisma\",\n    \"versao\": \"LT 1.4 Flex\",\n    \"anoModelo\": \"23/24\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/veiculo/salvar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"veiculo",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar veiculos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjMxNDYwOSwiaWRVc3VhcmlvIjoiMSIsInJldmVuZGEiOiI2NC41NjUuNTkyLzAwMDEtNzEiLCJwZXJmaWwiOiJST0xFX0FETUlOSVNUUkFET1IifQ.BfM0G9sg2Am0H4rkIQtIKlt7zdrPVtn9R4L-cSU9uiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/veiculo/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"veiculo",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Atendimento",
+			"item": [
+				{
+					"name": "Fazer atendimento",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjMwNzA0MCwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.FmPJIFH28O61lndlGhJRKAy1j9FX3SDdunIfm333NpA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"observacoes\":\"alguma observação aqui\",\n    \"usuario\":{\n        \"idUsuario\":2\n    },\n    \"oportunidade\":{\n        \"idOportunidade\":2\n    }\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atendimento/salvar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atendimento",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar atendimentos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXRldXNpZmdAZW1haWwuY29tIiwiaXNzIjoiU2lzdGVtYUBNb2JpYXV0byIsImV4cCI6MTc0MjIzMzczMSwiaWRVc3VhcmlvIjoxLCJyZXZlbmRhIjoiNjQuNTY1LjU5Mi8wMDAxLTcxIiwicGVyZmlsIjoiUk9MRV9BRE1JTklTVFJBRE9SIn0.CleDSViw11iJ-9ujiZV3ri1laWDYHEfuma7dK4hd84M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/atendimento/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atendimento",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -5,6 +5,7 @@ import com.mobiauto.api.dto.atendimento.AtendimentoOutputDTO;
 import com.mobiauto.api.mapper.atendimento.AtendimentoMapper;
 import com.mobiauto.domain.model.Atendimento;
 import com.mobiauto.domain.service.atendimento.AtendimentoService;
+import com.mobiauto.utils.UsuarioLogado;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,6 +36,9 @@ class AtendimentoControllerTest {
     @Mock
     private AtendimentoMapper mapper;
 
+    @Mock
+    private UsuarioLogado usuarioLogado;
+
     @InjectMocks
     private AtendimentoController controller;
 
@@ -54,7 +58,7 @@ class AtendimentoControllerTest {
     @Test
     void salvar() throws Exception {
         when(mapper.converterAtendimentoInputDTOEmAtendimento(any(AtendimentoInputDTO.class))).thenReturn(atendimento);
-        doNothing().when(service).salvar(atendimento, "token");
+        when(service.salvar(atendimento, "token")).thenReturn(atendimento);
 
         mockMvc.perform(post("/atendimento/salvar")
                         .header("Authorization", "Bearer token")

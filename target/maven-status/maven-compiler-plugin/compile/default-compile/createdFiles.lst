@@ -1,7 +1,6 @@
 com/mobiauto/domain/model/Revenda.class
 com/mobiauto/api/controller/cliente/ClienteController.class
 com/mobiauto/api/dto/atendimento/AtendimentoIDInputDTO.class
-com/mobiauto/utils/FormataData.class
 com/mobiauto/api/dto/login/LoginOutputDTO.class
 com/mobiauto/api/dto/revenda/RevendaDadosBasicosOutputDTO.class
 com/mobiauto/domain/service/usuario/UsuarioService.class

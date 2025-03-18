@@ -83,7 +83,6 @@
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/main/java/com/mobiauto/security/FiltroConfigWeb.java
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/main/java/com/mobiauto/security/FiltroInterceptador.java
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/main/java/com/mobiauto/security/JwtToken.java
-/home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/main/java/com/mobiauto/utils/FormataData.java
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/main/java/com/mobiauto/utils/Resposta.java
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/main/java/com/mobiauto/utils/UsuarioLogado.java
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/main/java/com/mobiauto/utils/ValidadorDeSenha.java

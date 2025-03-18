@@ -25,7 +25,7 @@ public class JwtToken {
                     .withSubject(usuario.getUsername()) // Dono do token (Nome do usuário)
                     .withIssuer(EMISSOR)
                     .withExpiresAt(LocalDateTime.now().plusMinutes(MINUTOS).toInstant(ZoneOffset.of("-03:00")))
-                    .withClaim("idUsuario", usuario.getIdUsuario()) // ID do usuário
+                    .withClaim("idUsuario", String.valueOf(usuario.getIdUsuario())) // ID do usuário
                     .withClaim("revenda", usuario.getRevenda().getCnpj()) // O token deve conter em qual revenda pertence a pessoa que está usando o token e realizando operações
                     .withClaim("perfil", String.valueOf(usuario.getPerfil().toString())) // Perfil do usuário
                     .sign(Algorithm.HMAC256(TOKEN_KEY.getBytes())); // Assinatura

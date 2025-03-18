@@ -2,7 +2,6 @@ package com.mobiauto.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.validator.Email;
 
 import java.util.List;
 

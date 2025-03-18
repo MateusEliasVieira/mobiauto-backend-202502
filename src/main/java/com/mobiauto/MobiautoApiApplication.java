@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class MobiautoApiApplication {
 
 	public static void main(String[] args) {
-//		PasswordEncoder encriptadorDeSenha = new BCryptPasswordEncoder();
-//		System.out.println("Senha: "+encriptadorDeSenha.encode("Ma25!!"));
+		//PasswordEncoder encriptadorDeSenha = new BCryptPasswordEncoder();
+		//System.out.println("Senha: "+encriptadorDeSenha.encode("Lu25!!"));
 		SpringApplication.run(MobiautoApiApplication.class, args);
 	}
 

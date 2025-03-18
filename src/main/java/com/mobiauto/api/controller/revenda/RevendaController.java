@@ -1,10 +1,8 @@
 package com.mobiauto.api.controller.revenda;
 
 import com.mobiauto.api.dto.revenda.RevendaAddUsuarioInputDTO;
-import com.mobiauto.api.dto.revenda.RevendaIDInputDTO;
 import com.mobiauto.api.dto.revenda.RevendaInputDTO;
 import com.mobiauto.api.dto.revenda.RevendaOutputDTO;
-import com.mobiauto.api.dto.usuario.UsuarioIDInputDTO;
 import com.mobiauto.api.mapper.revenda.RevendaMapper;
 import com.mobiauto.domain.service.revenda.RevendaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +54,5 @@ public class RevendaController {
         service.atualizar(mapper.converterRevendaInputDTOEmRevenda(revendaInputDTO));
         return new ResponseEntity<String>("Revenda atualizada com sucesso!", HttpStatus.CREATED);
     }
-
 
 }

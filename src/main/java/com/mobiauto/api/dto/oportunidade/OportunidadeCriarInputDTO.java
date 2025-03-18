@@ -1,6 +1,5 @@
 package com.mobiauto.api.dto.oportunidade;
 
-import com.mobiauto.api.dto.atendimento.AtendimentoIDInputDTO;
 import com.mobiauto.api.dto.cliente.ClienteInputDTO;
 import com.mobiauto.api.dto.revenda.RevendaIDInputDTO;
 import com.mobiauto.api.dto.usuario.UsuarioIDInputDTO;

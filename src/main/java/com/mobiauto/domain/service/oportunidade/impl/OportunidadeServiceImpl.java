@@ -1,6 +1,5 @@
 package com.mobiauto.domain.service.oportunidade.impl;
 
-import com.mobiauto.api.dto.atendimento.AtendimentoOportunidadeInputDTO;
 import com.mobiauto.api.dto.oportunidade.OportunidadeTransferenciaInputDTO;
 import com.mobiauto.domain.enums.RolePerfilUsuario;
 import com.mobiauto.domain.enums.StatusOportunidade;
@@ -33,6 +32,9 @@ public class OportunidadeServiceImpl implements OportunidadeService {
     private VeiculoRepository veiculoRepository;
     @Autowired
     private AtendimentoRepository repositoryAtendimento;
+
+    @Autowired
+    private UsuarioLogado usuarioLogado;
 
     @Transactional(readOnly = false)
     @Override
@@ -146,7 +148,7 @@ public class OportunidadeServiceImpl implements OportunidadeService {
 
     @Transactional(readOnly = false)
     @Override
-    public void transferirOportunidade(OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO,String token) {
+    public void transferirOportunidade(OportunidadeTransferenciaInputDTO oportunidadeTransferenciaInputDTO, String token) {
         // Qual usuário Assistente será?
         // Qual oportunidade?
         // Quem acionou esse método, tem permissão de Proprietário ou Gerente?
@@ -167,11 +169,13 @@ public class OportunidadeServiceImpl implements OportunidadeService {
                 () -> new RegrasDeNegocioException("Não foi encontrado a oportunidade que será transferida!"));
 
         // Verificamos se quem acionou o método tem permissão para isso
-        if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
-                || UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
+        if (usuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
+                || usuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
 
             // Verificar se o usuário logado é proprietário ou gerente da revenda da oportunidade
-            if (!oportunidade.getRevenda().getCnpj().equals(UsuarioLogado.getCnpjTokenUsuarioLogado(token))) {
+            System.out.println("Cnpj da revenda: " + oportunidade.getRevenda().getCnpj());
+            System.out.println("CNpj do usuario logado: " + usuarioLogado.getCnpjTokenUsuarioLogado(token));
+            if (!oportunidade.getRevenda().getCnpj().equals(usuarioLogado.getCnpjTokenUsuarioLogado(token))) {
                 throw new RegrasDeNegocioException("Você não tem permissão para transferir oportunidades dessa revenda!");
             }
 
@@ -203,11 +207,12 @@ public class OportunidadeServiceImpl implements OportunidadeService {
     @Transactional(readOnly = false)
     @Override
     public void concluir(Oportunidade oportunidade) {
-        repository.findById(oportunidade.getIdOportunidade()).orElseThrow(() -> new RegrasDeNegocioException("Oportunidade não encontrada!"));
+        Oportunidade oportunidadeEncontrada = repository.findById(oportunidade.getIdOportunidade()).orElseThrow(() -> new RegrasDeNegocioException("Oportunidade não encontrada!"));
         if (!oportunidade.getMotivoDaConclusao().isEmpty()) {
-            oportunidade.setStatus(StatusOportunidade.CONCLUIDO);
-            oportunidade.setDataDeConclusao(LocalDateTime.now());
-            repository.save(oportunidade);
+            oportunidadeEncontrada.setStatus(StatusOportunidade.CONCLUIDO);
+            oportunidadeEncontrada.setDataDeConclusao(LocalDateTime.now());
+            oportunidadeEncontrada.setMotivoDaConclusao(oportunidade.getMotivoDaConclusao());
+            repository.save(oportunidadeEncontrada);
         } else {
             throw new RegrasDeNegocioException("Informe o motivo da conclusão!");
         }
@@ -227,37 +232,52 @@ public class OportunidadeServiceImpl implements OportunidadeService {
 
     @Transactional(readOnly = false)
     @Override
-    public void atualizar(Oportunidade oportunidade,String token) {
-        // O usuário que está acionando este método deve ser proprietario ou gerente ou dono da oportunidade
+    public void atualizar(Oportunidade oportunidade, String token) {
+        // O usuário que está acionando este método deve ser proprietário ou gerente ou dono da oportunidade
 
         // Verificando se o código identificador único da oportunidade foi informado e se ela existe no banco de dados
         if (oportunidade.getIdOportunidade() != null) {
-            listarPorId(oportunidade.getIdOportunidade());
-            repository.save(oportunidade);
+            Oportunidade oportunidadeEncontrada = listarPorId(oportunidade.getIdOportunidade());
+
+            Revenda revenda = revendaRepository.findById(oportunidade.getRevenda().getIdRevenda())
+                    .orElseThrow(() -> new RegrasDeNegocioException("Revenda vinculada não encontrada!"));
+            Cliente cliente = clienteRepository.findById(oportunidade.getCliente().getIdCliente())
+                    .orElseThrow(() -> new RegrasDeNegocioException("Cliente vinculado não encontrado!"));
+            Usuario usuario = usuarioRepository.findById(oportunidade.getUsuario().getIdUsuario())
+                    .orElseThrow(() -> new RegrasDeNegocioException("Usuário vinculado não encontrado!"));
+            Veiculo veiculo = veiculoRepository.findById(oportunidade.getVeiculo().getIdVeiculo())
+                    .orElseThrow(() -> new RegrasDeNegocioException("Veículo vinculado não encontrado!"));
+
+            // Atualizando os dados da oportunidade
+            oportunidadeEncontrada.setRevenda(revenda);
+            oportunidadeEncontrada.setCliente(cliente);
+            oportunidadeEncontrada.setUsuario(usuario);
+            oportunidadeEncontrada.setVeiculo(veiculo);
+
+            // Verificando as permissões
+            if (temPermissaoParaAtualizar(oportunidadeEncontrada, token)) {
+                repository.save(oportunidadeEncontrada);
+            } else {
+                throw new RegrasDeNegocioException("Você não tem permissão para atualizar esta oportunidade!");
+            }
         } else {
             throw new RegrasDeNegocioException("Informe o código identificador da oportunidade!");
         }
+    }
 
-        Usuario usuario = usuarioRepository.findById(oportunidade.getUsuario().getIdUsuario())
-                .orElseThrow(() -> new RegrasDeNegocioException("Usuário vinculado a oportunidade não encontrado!"));
+    private boolean temPermissaoParaAtualizar(Oportunidade oportunidade, String token) {
+        Usuario usuario = oportunidade.getUsuario();
 
-        // Vericamos se quem está acessando é proprietário ou gerente
-        if (UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
-                || UsuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
-
-            // Pode atualizar
-            repository.save(oportunidade);
-
-        } else {
-            // Verificamos se pelo menos é o dono da oportunidade
-            if (Long.parseLong(UsuarioLogado.getIDTokenUsuarioLogado(token)) == usuario.getIdUsuario()) {
-                // É o dono da oportunidade
-                repository.save(oportunidade);
-            } else {
-                throw new RegrasDeNegocioException("Você não é o dono da oportunidade e também não é proprietário ou gerente. " +
-                        "Sendo assim, você não tem permissão para atualizar a oportunidade!");
-            }
+        // Verificando se o usuário logado é proprietário ou gerente
+        if (usuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_PROPRIETARIO.toString())
+                || usuarioLogado.getPerfilTokenUsuarioLogado(token).equals(RolePerfilUsuario.ROLE_GERENTE.toString())) {
+            return true;
         }
 
+        // Verificando se o usuário logado é o dono da oportunidade
+        Long idUsuarioLogado = Long.parseLong(usuarioLogado.getIDTokenUsuarioLogado(token));
+        return idUsuarioLogado.equals(usuario.getIdUsuario());
     }
+
+
 }

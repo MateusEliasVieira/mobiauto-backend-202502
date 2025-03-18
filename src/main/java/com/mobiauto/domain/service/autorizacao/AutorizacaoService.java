@@ -13,7 +13,6 @@ public class AutorizacaoService implements UserDetailsService {
     @Autowired
     private UsuarioRepository repository;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByEmail(username).get();// username será o email

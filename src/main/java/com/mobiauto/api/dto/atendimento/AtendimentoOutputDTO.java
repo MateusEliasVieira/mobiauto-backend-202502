@@ -3,8 +3,7 @@ package com.mobiauto.api.dto.atendimento;
 import com.mobiauto.api.dto.oportunidade.OportunidadeDadosBasicosOutputDTO;
 import com.mobiauto.api.dto.usuario.UsuarioDadosBasicosOutputDTO;
 import lombok.*;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import java.util.Date;
 public class AtendimentoOutputDTO {
     
     private Long idAtendimento;
-    private Date dataAtendimento;
+    private LocalDateTime dataAtendimento;
     private String observacoes;
 
     private UsuarioDadosBasicosOutputDTO usuario;

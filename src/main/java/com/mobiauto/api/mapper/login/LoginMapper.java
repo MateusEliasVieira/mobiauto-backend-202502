@@ -1,6 +1,5 @@
 package com.mobiauto.api.mapper.login;
 
-import com.mobiauto.api.dto.login.LoginInputDTO;
 import com.mobiauto.api.dto.login.LoginOutputDTO;
 import com.mobiauto.domain.model.Usuario;
 import org.modelmapper.ModelMapper;
@@ -13,10 +12,6 @@ public class LoginMapper {
 
     public LoginMapper(ModelMapper modelMapper) {
         this.mapper = modelMapper;
-    }
-
-    public Usuario converterLoginInputDTOParaUsuario(LoginInputDTO loginInputDTO) {
-        return this.mapper.map(loginInputDTO, Usuario.class);
     }
 
     public LoginOutputDTO converterUsuarioParaLoginOutputDTO(Usuario usuario) {

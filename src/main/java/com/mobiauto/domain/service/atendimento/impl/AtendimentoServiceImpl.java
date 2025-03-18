@@ -1,6 +1,5 @@
 package com.mobiauto.domain.service.atendimento.impl;
 
-import com.mobiauto.api.dto.atendimento.AtendimentoOportunidadeInputDTO;
 import com.mobiauto.domain.exception.RegrasDeNegocioException;
 import com.mobiauto.domain.model.Atendimento;
 import com.mobiauto.domain.model.Oportunidade;
@@ -29,14 +28,14 @@ public class AtendimentoServiceImpl implements AtendimentoService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public void salvar(Atendimento atendimento, String token) {
+    public Atendimento salvar(Atendimento atendimento, String token) {
         // É preciso saber se essa oportunidade e o atendimento que será vinculado a ela, pertencem a mesma revenda que o usuário que acionou esse método
-        Oportunidade oportunidade = oportunidadeRepository.findById(atendimento.getOportunidade().getIdOportunidade()).orElseThrow(() -> new RegrasDeNegocioException("Não foi encontrado a oportunidade informado para ser vinculada ao atenidmento!"));
+        Oportunidade oportunidade = oportunidadeRepository.findById(atendimento.getOportunidade().getIdOportunidade()).orElseThrow(() -> new RegrasDeNegocioException("Não foi encontrado a oportunidade informado para ser vinculada ao atendimento!"));
         Usuario usuario = usuarioRepository.findById(atendimento.getUsuario().getIdUsuario()).orElseThrow(() -> new RegrasDeNegocioException("Não foi encontrado o usuário para ser vinculado ao atendimento!"));
 
         String cnpjDonoDaOportunidade = oportunidade.getRevenda().getCnpj();
         String cnpjOndeUsuarioTrabalha = usuario.getRevenda().getCnpj();
-        String cnpjUsuarioLogado = UsuarioLogado.getCnpjTokenUsuarioLogado(token);
+        String cnpjUsuarioLogado = new UsuarioLogado().getCnpjTokenUsuarioLogado(token);
 
         if (cnpjUsuarioLogado.equals(cnpjOndeUsuarioTrabalha) && cnpjOndeUsuarioTrabalha.equals(cnpjDonoDaOportunidade)) {
 
@@ -53,6 +52,7 @@ public class AtendimentoServiceImpl implements AtendimentoService {
         }else{
             throw new RegrasDeNegocioException("Para atender a uma oportunidade, você deve ser um usuário da revenda que possui a oportunidade a ser atendida!");
         }
+        return atendimento;
     }
 
     @Override

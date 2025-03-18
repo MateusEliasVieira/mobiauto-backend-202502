@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface AtendimentoService {
 
-    public void salvar(Atendimento atendimento,String token);
+    public Atendimento salvar(Atendimento atendimento, String token);
     public List<Atendimento> listar();
 }

@@ -24,7 +24,6 @@ public class AtendimentoController {
     @PostMapping("/salvar")
     public ResponseEntity<String> salvar(@RequestBody AtendimentoInputDTO atendimentoInputDTO,@RequestHeader("Authorization") String authorizationHeader){
         String token = authorizationHeader.replace("Bearer ", "");
-
         service.salvar(mapper.converterAtendimentoInputDTOEmAtendimento(atendimentoInputDTO),token);
         return new ResponseEntity<String>("Atendimento registrado com sucesso!", HttpStatus.CREATED);
     }

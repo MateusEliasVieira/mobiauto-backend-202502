@@ -1,8 +1,6 @@
 package com.mobiauto.domain.service.revenda.impl;
 
 import com.mobiauto.api.dto.revenda.RevendaAddUsuarioInputDTO;
-import com.mobiauto.api.dto.revenda.RevendaIDInputDTO;
-import com.mobiauto.api.dto.usuario.UsuarioIDInputDTO;
 import com.mobiauto.domain.exception.RegrasDeNegocioException;
 import com.mobiauto.domain.model.Revenda;
 import com.mobiauto.domain.model.Usuario;

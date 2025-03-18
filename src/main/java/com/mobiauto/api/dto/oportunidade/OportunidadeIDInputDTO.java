@@ -1,6 +1,5 @@
 package com.mobiauto.api.dto.oportunidade;
 
-
 import lombok.*;
 
 @Getter

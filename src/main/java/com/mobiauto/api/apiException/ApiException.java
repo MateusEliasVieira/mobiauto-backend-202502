@@ -14,13 +14,6 @@ import java.util.List;
 @ControllerAdvice
 public class ApiException {
 
-    /*
-        MethodArgumentNotValidException.
-        Essa exceção é lançada pelo Spring quando a validação de
-        um argumento(parâmetro) do método falha, e é o que acontece quando
-        você usa a anotação @Valid em um parâmetro de método.
-    */
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Problema> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         List<Campo> lista = new ArrayList<Campo>();

@@ -1,6 +1,5 @@
 package com.mobiauto.domain.service.oportunidade;
 
-import com.mobiauto.api.dto.atendimento.AtendimentoOportunidadeInputDTO;
 import com.mobiauto.api.dto.oportunidade.OportunidadeTransferenciaInputDTO;
 import com.mobiauto.domain.model.Oportunidade;
 

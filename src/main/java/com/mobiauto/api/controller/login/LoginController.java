@@ -15,11 +15,9 @@ public class LoginController {
     @Autowired
     private LoginService servico;
 
-
     @PostMapping("/logar")
     public ResponseEntity<?> login(@RequestBody @Valid LoginInputDTO loginEntradaDTO, HttpServletRequest request) {
         return servico.processarLogin(loginEntradaDTO);
     }
-
 
 }

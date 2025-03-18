@@ -1,2 +1,8 @@
 com/mobiauto/MobiautoApiApplicationTests.class
+com/mobiauto/api/controller/cliente/ClienteControllerTest.class
+com/mobiauto/api/controller/login/LoginControllerTest.class
+com/mobiauto/api/controller/atendimento/AtendimentoControllerTest.class
+com/mobiauto/api/controller/usuario/UsuarioControllerTest.class
+com/mobiauto/api/controller/oportunidade/OportunidadeControllerTest.class
 com/mobiauto/api/controller/revenda/RevendaControllerTest.class
+com/mobiauto/api/controller/veiculo/VeiculoControllerTest.class

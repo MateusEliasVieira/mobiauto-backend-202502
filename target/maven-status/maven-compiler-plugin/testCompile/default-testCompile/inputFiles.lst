@@ -1,2 +1,8 @@
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/MobiautoApiApplicationTests.java
+/home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/api/controller/atendimento/AtendimentoControllerTest.java
+/home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/api/controller/cliente/ClienteControllerTest.java
+/home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/api/controller/login/LoginControllerTest.java
+/home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/api/controller/oportunidade/OportunidadeControllerTest.java
 /home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/api/controller/revenda/RevendaControllerTest.java
+/home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/api/controller/usuario/UsuarioControllerTest.java
+/home/devjava/Documentos/Projetos/mobiauto-backend-202502/mobiauto-backend-202502/src/test/java/com/mobiauto/api/controller/veiculo/VeiculoControllerTest.java

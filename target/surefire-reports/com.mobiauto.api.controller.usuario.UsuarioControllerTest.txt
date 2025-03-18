@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.mobiauto.api.controller.usuario.UsuarioControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.572 s -- in com.mobiauto.api.controller.usuario.UsuarioControllerTest

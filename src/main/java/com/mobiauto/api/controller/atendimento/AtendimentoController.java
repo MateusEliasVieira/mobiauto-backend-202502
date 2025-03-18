@@ -31,7 +31,7 @@ public class AtendimentoController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<AtendimentoOutputDTO>> listar(){
-        return new ResponseEntity<List<AtendimentoOutputDTO>>(mapper.converterListaAtendimentoEmListaAtendimentoOutputDTO(service.listar()), HttpStatus.CREATED);
+        return new ResponseEntity<List<AtendimentoOutputDTO>>(mapper.converterListaAtendimentoEmListaAtendimentoOutputDTO(service.listar()), HttpStatus.OK);
     }
 
 }

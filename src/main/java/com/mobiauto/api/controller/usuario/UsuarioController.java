@@ -28,7 +28,7 @@ public class UsuarioController {
     public ResponseEntity<String> salvar(@RequestBody @Valid UsuarioInputDTO usuarioInputDTO,  @RequestHeader("Authorization") String authorizationHeader) {
         String token = authorizationHeader.replace("Bearer ", "");
 
-        ValidadorDeSenha.isStrong(usuarioInputDTO.getSenha());
+        new ValidadorDeSenha().isStrong(usuarioInputDTO.getSenha());
         usuarioServico.salvar(mapper.converterUsuarioInputDTOEmUsuario(usuarioInputDTO),token);
         return new ResponseEntity<String>("Usuário cadastrado com sucesso!", HttpStatus.CREATED);
     }

@@ -4,7 +4,7 @@ import com.mobiauto.domain.exception.RegrasDeNegocioException;
 
 public class ValidadorDeSenha {
 
-    public static void isStrong(String senha) {
+    public void isStrong(String senha) {
         int contadorDeCaracteres = 0;
         int contadorDeCaracteresEspeciais = 0;
         int contadorDeNumeros = 0;
